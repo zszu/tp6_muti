@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提示</title>
+</head>
+<body>
+    <div class="msg-header">
+        <strong>{$msg}</strong>
+    </div>
+
+    {if $url}
+    <p><a href="{$url}" class="{$type}">如果您的浏览器没有自动跳转，请点击此链接</a></p>
+    <script type="text/javascript" reload="1">
+        setTimeout("window.location.href ='<?= $url; ?>';", 3000);
+    </script>
+    {else /}
+    <script type="text/javascript">
+        var browser = {}, ua = navigator.userAgent.toLowerCase();
+        browser.firefox = /firefox/.test(ua);
+        browser.chrome = /chrome/.test(ua);
+        browser.opera = /opera/.test(ua);
+        browser.ie = /msie/.test(ua);
+        //IE 11的userAgent版本为Trident 7.0
+        if(!browser.ie) browser.ie = /trident 7.0/.test(ua);
+
+        document.write('<p><a href="javascript:history.back()" class="alert-link">[ 点击这里返回上一页 ]</a></p>');
+
+    </script>
+    {/if}
+    <div class="body">
+        <ol>
+            {volist name="infos" id="info"}
+            <li>{$info}</li>
+            {/volist}
+        </ol>
+    </div>
+</body>
+</html>

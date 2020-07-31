@@ -1,0 +1,95 @@
+
+{include file="public/header" /}
+<body class="layui-anim layui-anim-up">
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('index/index');}">首页</a>
+        <a href="{:url('member/list');}">会员列表</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('member/index')}" >
+          <input class="layui-input" placeholder="开始日"  value="{$start}" name="start" id="start">
+          <input class="layui-input" placeholder="截止日" value="{$end}" name="end" id="end">
+          <input type="text" name="username" value="{$username ? :''}" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','./create.html',600,400)"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>性别</th>
+            <th>手机</th>
+            <th>邮箱</th>
+            <th>最后登录时间</th>
+            <th>登录次数</th>
+            <th>状态</th>
+            <th>操作</th></tr>
+        </thead>
+        <tbody>
+          {assign name="empty" value="<tr><td colspan="8">暂无数据</td></tr>"}
+          {volist name="models" id="model" empty="$empty"}
+            <tr>
+                <td>{$model.id}</td>
+                <td>{$model.username}</td>
+                <td>{$model.mobile}</td>
+                <td>{$model.email}</td>
+                <td>{$model.last_login_at|date="Y-m-d H:i:s"}</td>
+                <td>{$model.login_times}</td>
+                <td><span class="badge badge-{$model.status_class}">{$model.status}</span></td>
+                <td class="td-manage" id="{$model.id}">
+                    <a title="编辑"   href="{:url('member/edit',['id'=>$model.id])}">
+                      <i class="layui-icon">&#xe642;</i>
+                    </a>
+                    <a title="删除" class="item-delete" data-id="{$model.id}" href="{:url('member/delete' , ['id'=>$model.id]);}">
+                      <i class="layui-icon"></i>
+                    </a>
+                </td>
+            </tr>
+          {/volist}
+        </tbody>
+      </table>
+      <!--分页-->
+      {$models|raw}
+    </div>
+    <script>
+
+
+
+      /*用户-删除*/
+      function member_del(obj,id){
+          layer.confirm('确认要删除吗？',function(){
+               $.get('{:url("member/delete");}',{'id':id},function(res){
+                if(res.code>0){
+                    layer.alert(res.msg,{icon:2});return false;
+                }else{
+                    layer.alert(res.msg);
+                    setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
+                }
+            },'json');
+              $(obj).parents("tr").remove();
+              layer.msg('已删除!',{icon:1,time:1000});
+          });
+      }
+
+      $('.item-delete').click(function(obj) {
+          let flag = confirm('你确认删除该条记录吗？');
+          console.log($(obj));
+          console.log($(obj).attr('data-id'));
+          return flag ? true : false;
+      });
+
+
+    </script>
+
+{include file="public/footer" /}

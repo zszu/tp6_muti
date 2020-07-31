@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>登录</title>
-    <link rel="stylesheet" href="/static/css/font.css">
-    <link rel="stylesheet" href="/static/css/xadmin.css">
-    <script type="text/javascript" src="/static/lib/layui/layui.js"></script>
+    {css href="__ADMIN__/css/font.css"}
+    {css href="__ADMIN__/css/xadmin.css"}
+    {js href="__ADMIN__/lib/layui/layui.js"}
 </head>
 <body class="login-bg">
     <div class="login layui-anim layui-anim-up">
@@ -45,9 +45,12 @@
                 layer.alert('请输入密码',{icon:2});
                 return;
             }
-            $.post('/index.php/admin/user/login',{'username':username,'pwd':pwd},function(res){
+
+            $.post('{:url("user/login")}',{'username':username,'pwd':pwd},function(res){
+                res =  JSON.parse(res);
+                // console.log(res);return false;
                 if(res.code>0){
-                    layer.alert(res.msg,{icon:2});return false;
+                    layer.alert(res.msg,{icon:2});
                 }else{
                     layer.msg(res.msg);
                     setTimeout(function(){window.location.href = '{:url("index/index")}'},1000);

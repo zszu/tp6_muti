@@ -1,4 +1,6 @@
 <?php
+namespace app\common\model;
+
 use \think\facade\Db;
 class BaseModel extends \think\Model
 {
@@ -53,17 +55,7 @@ class BaseModel extends \think\Model
 
     }
 
-    /**
 
-     * 获取某个字段单的的值
-
-     */
-
-    public function getValue($where=array(),$field='*'){
-
-        return Db::name($this->table)->where($where)->value($field);
-
-    }
 
     /**
 
@@ -90,13 +82,13 @@ class BaseModel extends \think\Model
         return Db::name($this->table)->where($where)->setInc($field);
 
     }
-    public function onBeforeInsert()
-    {
-        $this->created_at = time();
-        $this->updated_at = time();
-    }
-    public function onBeforeUpdate()
-    {
-        $this->updated_at = time();
-    }
+//    public function onBeforeInsert()
+//    {
+//        $this->created_at = time();
+//        $this->updated_at = time();
+//    }
+//    public function onBeforeUpdate()
+//    {
+//        $this->updated_at = time();
+//    }
 }
