@@ -31,6 +31,7 @@
             <th>性别</th>
             <th>手机</th>
             <th>邮箱</th>
+            <th class="{$order ==  'desc' ? '' : 'dropup'}"><a href="{:url('index' , ['order'=>$order])}"> 创建时间</a></th>
             <th>最后登录时间</th>
             <th>登录次数</th>
             <th>状态</th>
@@ -44,9 +45,10 @@
                 <td>{$model.username}</td>
                 <td>{$model.mobile}</td>
                 <td>{$model.email}</td>
+                <td>{$model.created_at|date="Y-m-d H:i:s"}</td>
                 <td>{$model.last_login_at|date="Y-m-d H:i:s"}</td>
                 <td>{$model.login_times}</td>
-                <td><span class="badge badge-{$model.status_class}">{$model.status}</span></td>
+                <td><span class="badge badge-{$model.status_class}">{$model.status_text}</span></td>
                 <td class="td-manage" id="{$model.id}">
                     <a title="编辑"   href="{:url('member/edit',['id'=>$model.id])}">
                       <i class="layui-icon">&#xe642;</i>

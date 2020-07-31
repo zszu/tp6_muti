@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller;
 
+use  \app\common\enum\StatusEnum;
 use think\exception\ValidateException;
 use think\facade\Request;
 use think\facade\Db;
@@ -11,7 +12,7 @@ use app\admin\validate\MemberValidate;
 */
 class Member extends Base
 {
-	//列表
+	//首页
 	public function index(){
 	    $username =  request()->param('username');
         $start =  request()->param('start');
@@ -21,10 +22,12 @@ class Member extends Base
         $start = $start ? strtotime($start) : '';
         $end = $end ? strtotime($end) : '';
 
-	    $query = UserModel::order('id' , 'asc')->withSearch(['username' , 'created_at'] , [
-            'username' => $username,
-            'created_at' => [$start , $end],
-        ]);
+        $order = request()->param('order');
+	    $query = UserModel::order(['id'  => 'asc' , 'created_at'=> $order])
+            ->withSearch(['username' , 'created_at'] , [
+                'username' => $username,
+                'created_at' => [$start , $end],
+            ]);
 		return view('index',[
 			'models' => $query->paginate([
 			    'list_rows' => 10,
@@ -34,6 +37,7 @@ class Member extends Base
             'username' => $username,
             'start' => $start ? date('Y-m-d' ,$start) : '',
             'end' => $end ? date('Y-m-d' ,$end) : '',
+            'order' => $order =='desc' ? 'asc' : 'desc',
 		]);
 	}
 	//添加
@@ -42,10 +46,12 @@ class Member extends Base
 	}
 	//编辑
 	public function edit($id){
-		$model = Db::name('user')->find($id);
+		$model = UserModel::find($id);
+
 		return view('edit' , [
-			'id' => $id,
 			'model' => $model,
+            'id' => $id,
+            'statusArr' => StatusEnum::$listStatus,
 		]);
 	}
 
@@ -61,15 +67,20 @@ class Member extends Base
 	//保存 
 	public function save(){
 	    $data = request()->param();
+
+	    $scene = $data['scene'];
         try{
-            validate(MemberValidate::class)->batch()->check($data);
+            validate(MemberValidate::class)->scene($scene)->batch()->check($data);
         }catch (ValidateException $e){
             return $this->error('提交失败' , $e->getError() );
         }
         //密码加密
         $data['password'] = sha1($data['password']);
-
-        $id = UserModel::create($data)->getData('id');
+        if($scene == 'insert'){
+            $id = UserModel::create($data)->getData('id');
+        }else{
+            $id = UserModel::update($data);
+        }
 
         if($id){
             return $this->success('保存成功' , '' , url('index'));

@@ -23,6 +23,10 @@
   <body>
     <div class="x-body">
         <form class="layui-form" action="{:url('member/save');}" method="post">
+            <!--防止重复提交-->
+            <input type="hidden"  name="__token__" class="layui-input" value="{:token()}">
+            <!--场景-->
+            <input type="hidden"  name="scene" class="layui-input" value="insert">
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>用户名
@@ -67,8 +71,7 @@
               </div>
           </div>
             <div class="layui-form-item">
-               <!--防止重复提交-->
-               <input type="hidden"  name="__token__" class="layui-input" value="{:token()}">
+
                <button  class="layui-btn" lay-filter="add" lay-submit="" type="submit">
                   增加
                </button>

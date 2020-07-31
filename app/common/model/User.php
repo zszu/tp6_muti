@@ -19,11 +19,12 @@ class User extends BaseModel
         return $value ? $query->where('created_at' , 'between' , "$value[0] , $value[1]") : '';
     }
 
-    //status 获取器
-    public function getStatusAttr($value){
+    //status 文本 获取器
+    public function getStatusTextAttr($value , $data){
         $status = StatusEnum::$listStatus;
-        return $status[$value];
+        return $status[$data['status']];
     }
+
     //虚拟 一个字段 status 状态
     public function getStatusClassAttr($value , $data){
         $class = StatusEnum::$statusClass;

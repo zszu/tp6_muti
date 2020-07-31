@@ -44,4 +44,11 @@ class MemberValidate extends Validate
         'agree.require' => '协议不能为空',
         'agree.accepted' => '必须同意协议',
     ];
+    /**
+     * 场景验证 设置
+     */
+    protected $scene = [
+        'insert' => ['username' , 'email' , 'password' , 'password_confirm' , '__token__'],
+        'edit' => ['username' , 'password' , 'password_confirm' , '__token__'],
+    ];
 }
