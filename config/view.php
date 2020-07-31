@@ -22,4 +22,12 @@ return [
     'taglib_begin'  => '{',
     // 标签库标签结束标记
     'taglib_end'    => '}',
+
+    //模板替换输出
+    'tpl_replace_string'=>[
+        '__ADMIN__'=> request()->domain() . '/admin',
+        '__STATIC__'=> request()->domain() . '/admin',
+        '__CSS__'=> request()->domain() . '/static/css',
+        '__JS__'=> request()->domain() . '/static/js',
+    ]
 ];

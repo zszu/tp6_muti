@@ -2,15 +2,10 @@
 
 namespace app\admin\controller;
 
-use think\Request;
-use think\facade\Env;
-use think\facade\Db;
 use think\facade\Session;
-use app\common\model\News;
 use think\facade\View;
-class Index
+class Index extends Base
 {
-
     /**
      * 显示资源列表
      *
@@ -18,23 +13,19 @@ class Index
      */
     public function index()
     {
-
-      if(empty(Session::get('username'))){
-            return '<script type="text/javascript">alert("请登录！");window.location.href = "/admin/user/login"; </script>';
-      }  
-      return View::fetch('index',[
-        'username'=>Session::get('username'),
-    ]);
+      return view('index',[
+            'username'=>Session::get('username'),
+        ]);
     }
     public function welcome(){
-       return View::fetch('welcome' ,[
+       return view('welcome' ,[
             'username'=>Session::get('username'),
         ]);
     }
  
 
     public function hello(){
-        return '我是admin模块中的hello方法';
+        return '我是admin模块中的 index 控制器 中的hello方法';
     }
 
 

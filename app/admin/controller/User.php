@@ -3,11 +3,9 @@
 namespace app\admin\controller;
 
 use think\facade\Request;
-use think\facade\Env;
 use think\facade\Db;
 use think\facade\Session;
-use app\common\model\News;
-use think\facade\View;
+
 class User
 {
 
@@ -18,15 +16,19 @@ class User
 
     	if(Request::method() == 'POST'){
     		$params = Request::param();
-    		$admin = Db::name('user')->where('username',$params['username'])->find();
+    		$query = Db::name('user');
+//    		try{
+//                validate(UserValidate::class)->check($params);
+//            }catch (ValidateException $e){
+//    		    dump($e->getError());
+//            }
+    		$admin = $query->where('username',$params['username'])->find();
 
     		 if(empty($admin)){
-                echo json_encode(['code'=>1,'msg'=>'未找到管理员']);
-                exit;
+                return  json_encode(['code'=>1,'msg'=>'未找到管理员']);
             }
-            if(md5(md5($params['pwd'])) != $admin['password']){
-                echo json_encode(['code'=>1,'msg'=>'密码错误']);
-                exit;
+            if(sha1($params['pwd']) != $admin['password']){
+                return  json_encode(['code'=>1,'msg'=>'密码错误']);
             }
             Session::set('uid',$admin['id']);
             Session::set('username',$admin['username']);
@@ -34,12 +36,14 @@ class User
             $data = [
                 'login_times'=>++$admin['login_times'],
                 'last_login_at'=>time()
-                ];
-            Db::name('user')->where('id',$admin['id'])->save($data);
+            ];
+            $query->where('id',$admin['id'])->save($data);
+
+
             return json_encode(['code'=>0,'msg'=>'登陆成功']) ;
     	}
     	
-        return View::fetch();
+        return view();
     }
     /**
      *注册 register
@@ -56,9 +60,8 @@ class User
 			}
 
     	}
-		
 
-        return View::fetch();
+        return view();
     }
     /**
       * 退出
@@ -66,7 +69,7 @@ class User
     public function logout(){
     	Session::delete('uid');
     	Session::delete('username');
-    	return View::fetch('login');
+    	return view('login');
     }
     //个人信息
     public function userInfo(){
