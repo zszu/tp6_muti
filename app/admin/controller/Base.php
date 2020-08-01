@@ -1,6 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
+
 namespace app\admin\controller;
 use \think\facade\Session;
 use think\template\exception\TemplateNotFoundException;
@@ -34,4 +33,3 @@ class Base
         return $this->msg($msg , $infos , $url , 'error');
     }
 }
->>>>>>> 118743116de122e9a373f8cbea5004c3cb46e32d
