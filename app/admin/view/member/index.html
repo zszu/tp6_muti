@@ -3,7 +3,8 @@
 {block name="main"}
     <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a href="{:url('index/index');}">首页</a>
+
+        <a href="{:url('index/welcome');}">首页</a>
         <a>
           <cite>会员列表</cite></a>
       </span>
@@ -82,6 +83,29 @@
             layer.msg('已删除!',{icon:1,time:1000});
         });
     }
+=======
+
+      /*用户-删除*/
+      // function member_del(obj,id){
+      //     layer.confirm('确认要删除吗？',function(){
+      //          $.get('{:url("member/delete");}',{'id':id},function(res){
+      //           if(res.code>0){
+      //               layer.alert(res.msg,{icon:2});return false;
+      //           }else{
+      //               layer.alert(res.msg);
+      //               setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
+      //           }
+      //       },'json');
+      //         $(obj).parents("tr").remove();
+      //         layer.msg('已删除!',{icon:1,time:1000});
+      //     });
+      // }
+
+      $('.item-delete').click(function(obj) {
+          let flag = confirm('你确认删除该条记录吗？');
+          return flag ? true : false;
+      });
+>>>>>>> c815202252173c91a3ac77e16eac3748965c3e72
 
     $('.item-delete').click(function(obj) {
             layer.confirm('你确认删除该条记录吗？' , function(){
