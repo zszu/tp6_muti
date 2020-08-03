@@ -119,6 +119,7 @@ class File extends SplFileInfo
      */
     protected function getTargetFile(string $directory, string $name = null): File
     {
+
         if (!is_dir($directory)) {
             if (false === @mkdir($directory, 0777, true) && !is_dir($directory)) {
                 throw new FileException(sprintf('Unable to create the "%s" directory', $directory));
@@ -128,7 +129,6 @@ class File extends SplFileInfo
         }
 
         $target = rtrim($directory, '/\\') . \DIRECTORY_SEPARATOR . (null === $name ? $this->getBasename() : $this->getName($name));
-
         return new self($target, false);
     }
 

@@ -17,8 +17,7 @@ class Base
         }
     }
     public function msg($msg = '系统提示' , $infos = [], $url = '' , $type ='success'){
-
-        return view(app()->getAppPath('admin') . 'view/public/msg.html' , [
+        return view( 'public/msg' , [
                 'msg' => $msg,
                 'infos' => $infos,
                 'type' => $type,

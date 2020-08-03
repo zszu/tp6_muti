@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use think\Request;
 
-class article
+class Cate
 {
     /**
      * 显示资源列表

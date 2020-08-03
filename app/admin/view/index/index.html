@@ -1,6 +1,5 @@
-{include file="public/header" /}
-
-<body>
+{extend name="public/base" /}
+{block name="main"}
     <!-- 顶部开始 -->
     <div class="container">
         <div class="logo"><a href="{:url('index/index');}">后台管理</a></div>
@@ -11,7 +10,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
+              <dd><a href="{:url('news');}"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
               <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
                <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
             </dl>
@@ -21,8 +20,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">{$username}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('个人信息','{:url(\'user/userInfo\')}')">个人信息</a></dd>
-              <dd><a onclick="x_admin_show('切换帐号','{:url(\'user/checkout\')}')">切换帐号</a></dd>
+              <dd><a href="{:url('user/userInfo')}">个人信息</a></dd>
               <dd><a href="{:url('user/logout');}">退出</a></dd>
             </dl>
           </li>
@@ -34,6 +32,7 @@
     <!-- 中部开始 -->
      <!-- 左侧菜单开始 -->
     {include file="index/left" /}
+
     <!-- 左侧菜单结束 -->
     <!-- 右侧主体开始 -->
     <div class="page-content">
@@ -54,6 +53,5 @@
     <!-- 底部开始 -->
     {include file="index/footer" /}
     <!-- 底部结束 -->
+{/block}
 
-</body>
-</html>

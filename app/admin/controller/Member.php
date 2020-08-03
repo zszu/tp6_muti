@@ -23,7 +23,7 @@ class Member extends Base
         $end = $end ? strtotime($end) : '';
 
         $order = request()->param('order');
-	    $query = UserModel::order(['id'  => 'asc' , 'created_at'=> $order])
+	    $query = UserModel::order([/*'id'  => 'asc' ,*/ 'created_at'=> $order])
             ->withSearch(['username' , 'created_at'] , [
                 'username' => $username,
                 'created_at' => [$start , $end],
@@ -68,6 +68,7 @@ class Member extends Base
 	public function save(){
 	    $data = request()->param();
 
+	    //场景
 	    $scene = $data['scene'];
         try{
             validate(MemberValidate::class)->scene($scene)->batch()->check($data);

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>后台</title>
+    <title>后台 - {block name="title"}{/block}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!--移动社备优先-->
@@ -22,3 +22,9 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<body>
+    {block name="main"}{/block}
+
+    {block name="js"}{/block}
+</body>
+</html>

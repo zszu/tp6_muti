@@ -1,38 +1,35 @@
 {extend name="public/base" /}
-{block name="title"}会员列表{/block}
+{block name="title"}新闻列表{/block}
 {block name="main"}
     <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="{:url('index/index');}">首页</a>
         <a>
-          <cite>会员列表</cite></a>
+          <cite>新闻列表</cite></a>
       </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
     <div class="x-body">
       <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so" action="{:url('member/index')}" >
-          <input class="layui-input" placeholder="开始日"  value="{$start}" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" value="{$end}" name="end" id="end">
-          <input type="text" name="username" value="{$username ? :''}" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('articles/index')}" >
+
+          <input type="text" name="title" value="{$title ? :''}" placeholder="请输入标题" autocomplete="off" class="layui-input">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <a class="layui-btn" href="{:url('member/create')}"><i class="layui-icon"></i>添加</a>
+        <a class="layui-btn" href="{:url('articles/create')}"><i class="layui-icon"></i>添加</a>
         <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
       </xblock>
       <table class="layui-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>性别</th>
-            <th>手机</th>
-            <th>邮箱</th>
+            <th>排序</th>
+            <th>标题</th>
+            <th>简介</th>
             <th class="{$order ==  'desc' ? '' : 'dropup'}"><a href="{:url('index' , ['order'=>$order])}"> 创建时间</a></th>
-            <th>最后登录时间</th>
-            <th>登录次数</th>
             <th>状态</th>
             <th>操作</th></tr>
         </thead>
@@ -41,18 +38,17 @@
           {volist name="models" id="model" empty="$empty"}
             <tr>
                 <td>{$model.id}</td>
-                <td>{$model.username}</td>
-                <td>{$model.mobile}</td>
-                <td>{$model.email}</td>
+                <td>{$model.title}</td>
+                <td>{$model.order_by}</td>
+                <td>{$model.summary}</td>
                 <td>{$model.created_at|date="Y-m-d H:i:s"}</td>
-                <td>{$model.last_login_at|date="Y-m-d H:i:s"}</td>
-                <td>{$model.login_times}</td>
+
                 <td><span class="badge badge-{$model.status_class}">{$model.status_text}</span></td>
                 <td class="td-manage" id="{$model.id}">
-                    <a title="编辑"   href="{:url('member/edit',['id'=>$model.id])}">
+                    <a title="编辑"   href="{:url('articles/edit',['id'=>$model.id])}">
                       <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" class="item-delete" data-id="{$model.id}" href="{:url('member/delete' , ['id'=>$model.id]);}">
+                    <a title="删除" class="item-delete" data-id="{$model.id}" href="{:url('articles/delete' , ['id'=>$model.id]);}">
                       <i class="layui-icon"></i>
                     </a>
                 </td>
