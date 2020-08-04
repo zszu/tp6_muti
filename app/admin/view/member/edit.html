@@ -8,6 +8,9 @@
             <input type="hidden" name="_method" value="put" >
             <!--场景-->
             <input type="hidden"  name="scene" class="layui-input" value="edit">
+            {if $model.id}
+            <input type="hidden"  name="id" class="layui-input" value="{$model.id}">
+            {/if}
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>用户名

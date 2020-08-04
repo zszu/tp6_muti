@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>登录</title>
+    <title>tp6 后台 - 登录</title>
     {css href="__ADMIN__/css/font.css"}
     {css href="__ADMIN__/css/xadmin.css"}
     {js href="__ADMIN__/lib/layui/layui.js"}
@@ -16,6 +16,12 @@
             <hr class="hr15">
             <input name="password" id="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
+            <div class="layui-form-item">
+                <label class="layui-form-label">{:captcha_img()}</label>
+                <input type="text" id="verifyCode"  name="verifyCode" lay-verify="required"  placeholder="验证码" autocomplete="off" class="layui-input">
+            </div>
+            <hr class="hr15">
+            <input type="hidden" value="{:token()}" name="__token__">
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="button" onclick="dologin()">
             <hr class="hr20" >
         </form>
@@ -37,6 +43,7 @@
         function dologin(){
             var username = $.trim($('#username').val());
             var pwd = $.trim($('#password').val());
+            var code = $.trim($('#verifyCode').val());
             if(username == ''){
                 layer.alert('请输入用户名',{icon:2});
                 return;
@@ -45,15 +52,19 @@
                 layer.alert('请输入密码',{icon:2});
                 return;
             }
+            if(code == ''){
+                layer.alert('请输入验证码',{icon:2});
+                return;
+            }
 
-            $.post('{:url("user/login")}',{'username':username,'pwd':pwd},function(res){
+            $.post('{:url("user/login")}',{'username':username,'password':pwd,'verifyCode':code},function(res){
                 res =  JSON.parse(res);
                 // console.log(res);return false;
                 if(res.code>0){
                     layer.alert(res.msg,{icon:2});
                 }else{
                     layer.msg(res.msg);
-                    setTimeout(function(){window.location.href = '{:url("index/index")}'},1000);
+                    setTimeout(function(){window.location.href = '{:url("/admin/index")}'},1000);
                 }
             },'json');
         }

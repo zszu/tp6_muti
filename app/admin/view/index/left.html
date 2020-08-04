@@ -2,6 +2,7 @@
 <div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
+
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
@@ -10,23 +11,12 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="{:url('member/index');}">
+                        <a _href="{:url('sys/index');}">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员列表</cite>
+                            <cite>系统信息设置</cite>
                         </a>
                     </li >
-                    <li>
-                        <a _href="{:url('articles/index');}">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>新闻</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="{:url('cate/index' , ['name'=>'articles']);}">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>新闻分类</cite>
-                        </a>
-                    </li >
+
                 </ul>
             </li>
             <li>
@@ -37,17 +27,17 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="{:url('articles/index');}">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>新闻管理</cite>
+                            <cite>新闻</cite>
                         </a>
-                    </li >
+                    </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="{:url('cate/index' , ['name'=>'articles']);}">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>新闻分类</cite>
                         </a>
-                    </li >
+                    </li>
 
                 </ul>
             </li>
@@ -61,21 +51,21 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="admin-list.html">
+                        <a _href="{:url('member/index');}">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="admin-role.html">
+                        <a _href="{:url('role/index');}">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="admin-rule.html">
+                        <a _href="{:url('rule/index');}">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限管理</cite>
+                            <cite>权限规则管理</cite>
                         </a>
                     </li >
                 </ul>

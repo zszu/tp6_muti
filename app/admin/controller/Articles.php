@@ -59,16 +59,18 @@ class Articles extends Base
 //        }catch (ValidateException $e){
 //            return $this->error('提交失败' , $e->getError() );
 //        }
-//        dd($data);
-        $file = $request->file('cover');
 
-        $info = \think\facade\Filesystem::disk('public')->putFile( 'articles', $file);
+dd($data);
+        if(isset($data['cover'])){
+            $file = $request->file('cover');
+            $info = \think\facade\Filesystem::disk('public')->putFile( 'articles', $file);
 
-        if(!$info){
-            return $this->error('图片保存失败' , $file->getError() , url('index'));
+            if(!$info){
+                return $this->error('图片保存失败' , $file->getError() , url('index'));
+            }
+
+            $data['cover'] = '/storage/' . str_replace('\\' , '/' , $info);
         }
-
-        $data['cover'] = '/storage/' . str_replace('\\' , '/' , $info);
 
         if($scene == 'insert'){
             $id = ArticlesModel::create($data)->getData('id');
@@ -83,16 +85,6 @@ class Articles extends Base
         }
     }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
 
     /**
      * 显示编辑资源表单页.
@@ -100,7 +92,7 @@ class Articles extends Base
      * @param  int  $id
      * @return \think\Response
      */
-    public function edit($id)
+    public function edit($id = '')
     {
         $model = ArticlesModel::find($id);
 
@@ -111,17 +103,6 @@ class Articles extends Base
         ]);
     }
 
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * 删除指定资源

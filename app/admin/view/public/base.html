@@ -26,5 +26,28 @@
     {block name="main"}{/block}
 
     {block name="js"}{/block}
+    <script>
+        $.fn.linkConfirm = function (msg) {
+            $(this).on('click', function (e) {
+
+                e.preventDefault();
+
+                var url = $(this).attr('href');
+
+                var dlg = layer.confirm(msg, function () {
+
+                    layer.close(dlg);
+
+                    window.location.href = url;
+
+                })
+
+            });
+
+        };
+
+
+        $('.item-delete').linkConfirm('确定要删除该项？');
+    </script>
 </body>
 </html>

@@ -14,8 +14,11 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" action="{:url('member/index')}" >
+
           <input class="layui-input" placeholder="开始日"  value="{$start}" name="start" id="start">
           <input class="layui-input" placeholder="截止日" value="{$end}" name="end" id="end">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
           <input type="text" name="username" value="{$username ? :''}" placeholder="请输入用户名" autocomplete="off" class="layui-input">
           <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
@@ -31,7 +34,17 @@
             <th>性别</th>
             <th>手机</th>
             <th>邮箱</th>
-            <th class="{$order ==  'desc' ? '' : 'dropup'}"><a href="{:url('index' , ['order'=>$order])}"> 创建时间</a></th>
+            <th>
+                <a href="{:url('index' , ['order'=>$order])}">
+                    <div class="layui-table-cell laytable-cell-1-0-2">
+                        <span>创建时间</span>
+                        <span class="layui-table-sort layui-inline" lay-sort="{:$order}">
+                            <i class="layui-edge layui-table-sort-asc" title="升序"></i>
+                            <i class="layui-edge layui-table-sort-desc" title="降序"></i>
+                        </span>
+                    </div>
+                </a>
+            </th>
             <th>最后登录时间</th>
             <th>登录次数</th>
             <th>状态</th>
@@ -66,63 +79,3 @@
     </div>
 {/block}
 
-{block name="js"}
-<script>
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(){
-            $.get('{:url("member/delete");}',{'id':id},function(res){
-                if(res.code>0){
-                    layer.alert(res.msg,{icon:2});return false;
-                }else{
-                    layer.alert(res.msg);
-                    setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
-                }
-            },'json');
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
-    }
-=======
-
-      /*用户-删除*/
-      // function member_del(obj,id){
-      //     layer.confirm('确认要删除吗？',function(){
-      //          $.get('{:url("member/delete");}',{'id':id},function(res){
-      //           if(res.code>0){
-      //               layer.alert(res.msg,{icon:2});return false;
-      //           }else{
-      //               layer.alert(res.msg);
-      //               setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
-      //           }
-      //       },'json');
-      //         $(obj).parents("tr").remove();
-      //         layer.msg('已删除!',{icon:1,time:1000});
-      //     });
-      // }
-
-      $('.item-delete').click(function(obj) {
-          let flag = confirm('你确认删除该条记录吗？');
-          return flag ? true : false;
-      });
->>>>>>> c815202252173c91a3ac77e16eac3748965c3e72
-
-    $('.item-delete').click(function(obj) {
-            layer.confirm('你确认删除该条记录吗？' , function(){
-            $.get('{:url("member/delete");}',{'id':id},function(res){
-                if(res.code>0){
-                    layer.alert(res.msg,{icon:2});return false;
-                }else{
-                    layer.alert(res.msg);
-                    setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
-                }
-            },'json');
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
-        // console.log($(obj));
-        // console.log($(obj).attr('data-id'));
-        // return flag ? true : false;
-    });
-</script>
-{/block}

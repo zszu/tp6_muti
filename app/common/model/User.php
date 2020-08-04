@@ -2,6 +2,7 @@
 namespace app\common\model;
 
 use app\common\enum\StatusEnum;
+use think\Model;
 
 /**
 * 用户模型
@@ -31,5 +32,4 @@ class User extends BaseModel
         return $class[$data['status']];
     }
 
-	
 }

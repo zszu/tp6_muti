@@ -89,23 +89,23 @@
                         </tr>
                         <tr>
                             <th>服务器地址</th>
-                            <td>{:}</td>
+                            <td>{:$_SERVER['SERVER_NAME'];}</td>
                         </tr>
                         <tr>
                             <th>操作系统</th>
-                            <td><?=  php_uname('s');?></td>
+                            <td>{:php_uname('s');}</td>
                         </tr>
                         <tr>
                             <th>运行环境</th>
-                            <td><?= $_SERVER["SERVER_SOFTWARE"];?></td>
+                            <td>{:$_SERVER["SERVER_SOFTWARE"];}</td>
                         </tr>
                         <tr>
                             <th>PHP版本</th>
-                            <td><?= PHP_VERSION;?></td>
+                            <td>{:PHP_VERSION;}</td>
                         </tr>
                         <tr>
                             <th>PHP运行方式</th>
-                            <td><?= php_sapi_name();?></td>
+                            <td>{:php_sapi_name();}</td>
                         </tr>
                         <tr>
                             <th>MYSQL版本</th>
@@ -114,10 +114,10 @@
                     
                         <tr>
                             <th>上传附件限制</th>
-                            <td><?= get_cfg_var ("upload_max_filesize");?></td></tr>
+                            <td>{:get_cfg_var ("upload_max_filesize");}</td></tr>
                         <tr>
                             <th>执行时间限制</th>
-                            <td><?= get_cfg_var("max_execution_time")."秒 "; ?></td>
+                            <td>{:get_cfg_var("max_execution_time")."秒 "; }</td>
                         </tr>
                        
                     </tbody>

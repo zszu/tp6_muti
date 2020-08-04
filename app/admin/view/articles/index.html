@@ -19,7 +19,7 @@
         </form>
       </div>
       <xblock>
-        <a class="layui-btn" href="{:url('articles/create')}"><i class="layui-icon"></i>添加</a>
+        <a class="layui-btn" href="{:url('articles/edit')}"><i class="layui-icon"></i>添加</a>
         <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
       </xblock>
       <table class="layui-table">
@@ -29,7 +29,17 @@
             <th>排序</th>
             <th>标题</th>
             <th>简介</th>
-            <th class="{$order ==  'desc' ? '' : 'dropup'}"><a href="{:url('index' , ['order'=>$order])}"> 创建时间</a></th>
+            <th>
+               <a href="{:url('index' , ['order'=>$order])}">
+                  <div class="layui-table-cell laytable-cell-1-0-2">
+                      <span>创建时间</span>
+                      <span class="layui-table-sort layui-inline" lay-sort="{:$order}">
+                        <i class="layui-edge layui-table-sort-asc" title="升序"></i>
+                        <i class="layui-edge layui-table-sort-desc" title="降序"></i>
+                    </span>
+                  </div>
+               </a>
+            </th>
             <th>状态</th>
             <th>操作</th></tr>
         </thead>
@@ -44,11 +54,11 @@
                 <td>{$model.created_at|date="Y-m-d H:i:s"}</td>
 
                 <td><span class="badge badge-{$model.status_class}">{$model.status_text}</span></td>
-                <td class="td-manage" id="{$model.id}">
+                <td class="td-manage">
                     <a title="编辑"   href="{:url('articles/edit',['id'=>$model.id])}">
                       <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" class="item-delete" data-id="{$model.id}" href="{:url('articles/delete' , ['id'=>$model.id]);}">
+                    <a title="删除" class="item-delete"  href="{:url('articles/delete',['id'=>$model.id])}" >
                       <i class="layui-icon"></i>
                     </a>
                 </td>
@@ -61,40 +71,3 @@
     </div>
 {/block}
 
-{block name="js"}
-<script>
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(){
-            $.get('{:url("member/delete");}',{'id':id},function(res){
-                if(res.code>0){
-                    layer.alert(res.msg,{icon:2});return false;
-                }else{
-                    layer.alert(res.msg);
-                    setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
-                }
-            },'json');
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
-    }
-
-    $('.item-delete').click(function(obj) {
-            layer.confirm('你确认删除该条记录吗？' , function(){
-            $.get('{:url("member/delete");}',{'id':id},function(res){
-                if(res.code>0){
-                    layer.alert(res.msg,{icon:2});return false;
-                }else{
-                    layer.alert(res.msg);
-                    setTimeout(function(){window.location.href = '{:url("member/list")}'},1000);
-                }
-            },'json');
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
-        // console.log($(obj));
-        // console.log($(obj).attr('data-id'));
-        // return flag ? true : false;
-    });
-</script>
-{/block}
