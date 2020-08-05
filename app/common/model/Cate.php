@@ -11,5 +11,5 @@ use think\Model;
  */
 class Cate extends BaseModel
 {
-    //
+
 }

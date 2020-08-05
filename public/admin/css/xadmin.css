@@ -18,6 +18,10 @@ body{
     width: 100%;
     min-height: 100%;
 }
+/** 新增*/
+.layui-btn-warning{
+    background-color:#ffc107;
+}
 .login-bg{
     /*background: #eeeeee url() 0 0 no-repeat;*/
      background:url(../images/bg.png) no-repeat center;

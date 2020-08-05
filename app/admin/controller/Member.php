@@ -3,8 +3,7 @@ namespace app\admin\controller;
 
 use  \app\common\enum\StatusEnum;
 use think\exception\ValidateException;
-use think\facade\Request;
-use think\facade\Db;
+use think\Request;
 use app\common\model\User as UserModel;
 use app\admin\validate\MemberValidate;
 /**
@@ -65,7 +64,7 @@ class Member extends Base
         }
 	}
 	//保存 
-	public function save(){
+	public function save(Request $request){
 	    $data = request()->param();
 
 	    //场景
@@ -75,6 +74,7 @@ class Member extends Base
         }catch (ValidateException $e){
             return $this->error('提交失败' , $e->getError() );
         }
+
         //密码加密
         $data['password'] = sha1($data['password']);
         if($scene == 'insert'){

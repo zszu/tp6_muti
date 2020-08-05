@@ -1,0 +1,67 @@
+{extend name="public/base" /}
+{block name="title"}分类{/block}
+{block name="main"}
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="{:url('index/index');}">首页</a>
+        <a>
+          <cite>分类</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+
+      <xblock>
+        <a class="layui-btn" href="{:url('cate/edit')}"><i class="layui-icon"></i>添加</a>
+        <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>排序</th>
+            <th>标题</th>
+            <th>简介</th>
+            <th>
+               <a href="{:url('index' , ['order'=>$order])}">
+                  <div class="layui-table-cell laytable-cell-1-0-2">
+                      <span>创建时间</span>
+                      <span class="layui-table-sort layui-inline" lay-sort="{:$order}">
+                        <i class="layui-edge layui-table-sort-asc" title="升序"></i>
+                        <i class="layui-edge layui-table-sort-desc" title="降序"></i>
+                    </span>
+                  </div>
+               </a>
+            </th>
+            <th>状态</th>
+            <th>操作</th></tr>
+        </thead>
+        <tbody>
+          {assign name="empty" value='<tr><td colspan="9">暂无数据</td></tr>'}
+          {volist name="models" id="model" empty="$empty"}
+            <tr>
+                <td>{$model.id}</td>
+                <td>{$model.title}</td>
+                <td>{$model.order_by}</td>
+                <td>{$model.summary}</td>
+                <td>{$model.created_at|date="Y-m-d H:i:s"}</td>
+
+                <td class="td-stataus"><span class="layui-btn layui-btn-{$model.status_class}">{$model.status_text}</span></td>
+                <td class="td-manage">
+                    <a title="编辑"   href="{:url('cate/edit',['id'=>$model.id])}">
+                      <i class="layui-icon">&#xe642;</i>
+                    </a>
+                    <a title="删除" class="item-delete"  href="{:url('cate/delete',['id'=>$model.id])}" >
+                      <i class="layui-icon"></i>
+                    </a>
+                </td>
+            </tr>
+          {/volist}
+        </tbody>
+      </table>
+      <!--分页-->
+      {$models|raw}
+    </div>
+{/block}
+

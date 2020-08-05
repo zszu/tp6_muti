@@ -6,7 +6,7 @@ use think\facade\Route;
 Route::get('hello','Index/hello');
 Route::get('index','Index/index');
 Route::get('welcome','Index/welcome');
-Route::post('login', 'User/login');
+//Route::post('login', 'User/login');
 Route::get('logout', 'User/logout');
 //Route::group(function (){
 //

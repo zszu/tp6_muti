@@ -18,4 +18,6 @@ class Articles extends BaseModel
     public function cateObj(){
         return $this->hasOne(Cate::class , 'id' , 'type');
     }
+
 }
+

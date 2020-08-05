@@ -26,8 +26,9 @@ return [
     //模板替换输出
     'tpl_replace_string'=>[
         '__ADMIN__'=> request()->domain() . '/admin',
-        '__STATIC__'=> request()->domain() . '/admin',
+        '__STATIC__'=> request()->domain() . '/static',
         '__CSS__'=> request()->domain() . '/static/css',
         '__JS__'=> request()->domain() . '/static/js',
+        '__EXTEND__'=>  '/../extend',
     ]
 ];

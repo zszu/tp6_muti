@@ -3,9 +3,10 @@ declare (strict_types = 1);
 
 namespace app\admin\controller;
 
+use app\common\enum\StatusEnum;
 use think\Request;
 use app\common\model\Articles as ArticlesModel;
-
+use app\common\model\Cate as CateModel;
 class Articles extends Base
 {
     /**
@@ -32,15 +33,6 @@ class Articles extends Base
         ]);
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        return view('create');
-    }
 
     /**
      * 保存新建的资源
@@ -60,8 +52,8 @@ class Articles extends Base
 //            return $this->error('提交失败' , $e->getError() );
 //        }
 
-dd($data);
-        if(isset($data['cover'])){
+
+        if(!empty($_FILES['cover']['tmp_name'])){
             $file = $request->file('cover');
             $info = \think\facade\Filesystem::disk('public')->putFile( 'articles', $file);
 
@@ -71,6 +63,10 @@ dd($data);
 
             $data['cover'] = '/storage/' . str_replace('\\' , '/' , $info);
         }
+
+        $data['content'] = htmlspecialchars($data['content']);
+
+//        dd($data);
 
         if($scene == 'insert'){
             $id = ArticlesModel::create($data)->getData('id');
@@ -99,7 +95,8 @@ dd($data);
         return view('edit' , [
             'model' => $model,
             'id' => $id,
-//            'statusArr' => StatusEnum::$listStatus,
+            'statusArr' => StatusEnum::$listStatus,
+            'typeArr' => CateModel::select(),
         ]);
     }
 
