@@ -91,7 +91,6 @@ class Articles extends Base
     public function edit($id = '')
     {
         $model = ArticlesModel::find($id);
-
         return view('edit' , [
             'model' => $model,
             'id' => $id,
